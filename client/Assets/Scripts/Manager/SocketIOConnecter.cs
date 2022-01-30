@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BestHTTP.SocketIO3;
-useing BestHttP.SocketIO3.Events;
+using BestHTTP.SocketIO3.Events;
 
-public class SocketManager : MonoBehaviour
+public class SocketIOConnecter : MonoBehaviour
 {
+    [SerializeField] private string address = "";
+    private SocketManager socketManager = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class SocketManager : MonoBehaviour
         socketManager.Open();
 
         socketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnected);
-        socketManager.Socket.On("PlayerConnected", PlayerConnected);
+        socketManager.Socket.On("connect", PlayerConnected);
     }
 
     private void OnConnected(ConnectResponse res)
